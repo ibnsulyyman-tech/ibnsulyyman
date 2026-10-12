@@ -1,0 +1,210 @@
+@import "tailwindcss";
+
+:root {
+  --main-dark: #1d1d1d;
+  --main-dark-alt: #252525;
+  --main-light: #e5e4e0;
+  --main-light-alt: #f1f0ec;
+  --brand-blue: #006eff;
+  --brand-magenta: #ff0077;
+  --brand-white: #ffffff;
+  --dark-grey: rgba(218, 218, 218, 0.2);
+  --dark-grey60: rgba(218, 218, 218, 0.6);
+  --light-grey: rgba(111, 111, 111, 0.2);
+  --light-grey60: rgba(111, 111, 111, 0.6);
+  --large-radius: 6.25em;
+  --med-radius: 1.375em;
+  --small-radius: 0.625em;
+  --perspective: 4000px;
+  --font-sans: "Plus Jakarta Sans", "PP Neue Montreal", "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Syne", "Cabinet Grotesk", "Arial Black", "Helvetica Neue", sans-serif;
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+html {
+  box-sizing: border-box;
+  scroll-behavior: auto;
+  background-color: var(--main-dark);
+  color: var(--main-light);
+}
+
+html.light {
+  background-color: var(--main-light);
+  color: var(--main-dark);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: inherit;
+  color: inherit;
+  font-family: var(--font-sans), sans-serif;
+}
+
+@media (min-width: 992px) {
+  body {
+    font-size: 1.0582010582010584vw;
+  }
+}
+
+::selection {
+  background: var(--brand-blue);
+  color: var(--brand-white);
+  text-shadow: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #141414;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #006eff, #ff0077);
+  border-radius: 999px;
+}
+
+/* Difference Blending (Core Off+Brand Visual Trick) */
+.mbm-diff {
+  mix-blend-mode: difference;
+  color: #e5e4e0;
+  user-select: none;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Stagger / Split-Text Link Roll Effect */
+.stagger-roll {
+  display: inline-block;
+  transition: transform 0.65s cubic-bezier(0.165, 0.84, 0.44, 1);
+  text-shadow: 0px 1.2em 0px currentColor;
+}
+
+.group:hover .stagger-roll {
+  transform: translateY(-1.2em);
+}
+
+/* Arrow Horizontal Slide on Hover */
+.arrow-slide {
+  display: inline-block;
+  text-shadow: -1.3em 0px 0px currentColor;
+  transition: transform 0.9s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.group:hover .arrow-slide {
+  transform: translateX(1.3em);
+}
+
+/* Link Track Underline Fill */
+.link-track {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: var(--dark-grey);
+  overflow: hidden;
+}
+
+.link-track-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #006eff, #ff0077);
+  transform: scale3d(0, 1, 1);
+  transform-origin: left center;
+  transition: transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.group:hover .link-track-fill {
+  transform: scale3d(1, 1, 1);
+}
+
+/* HUD Scroll Pulse */
+@keyframes hudPulse {
+  0% {
+    transform: scale3d(1, 0, 1);
+    transform-origin: top;
+  }
+  50% {
+    transform: scale3d(1, 1, 1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale3d(1, 0, 1);
+    transform-origin: bottom;
+  }
+}
+
+.hud-scroll-line-top {
+  animation: hudPulse 4s infinite ease-in-out;
+}
+
+/* 3D Perspective Grid Container */
+.hg-stage {
+  perspective: 4000px;
+  transform-style: preserve-3d;
+}
+
+.hg-cloud {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.hg-tile {
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Evolving IBNSULYYMAN Gradient Portal (00:44 - 00:51) */
+@keyframes loopBrandGradient {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.gradient-evolve {
+  position: relative;
+  background-image: linear-gradient(
+    255deg,
+    #ff0077 0%,
+    #006eff 38%,
+    #5bb6ff 72%,
+    #ffffff 100%
+  );
+}
+
+.gradient-evolve::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    255deg,
+    #006eff 0%,
+    #ff0077 35%,
+    #78bae6 70%,
+    #ffffff 100%
+  );
+  animation: loopBrandGradient 5s infinite ease-in-out;
+  pointer-events: none;
+}
+
+/* Subtle Brand Pattern Overlay */
+.brand-pattern-bg {
+  background-image: url("/brand/pattern-grid.png");
+  background-size: 360px auto;
+  background-repeat: repeat;
+}
+
+.brand-pattern-strip {
+  background-image: url("/brand/pattern.png");
+  background-size: auto 100%;
+  background-repeat: repeat-x;
+}
